@@ -47,6 +47,12 @@ export class CrListComponent implements OnInit {
 	get visibleRows(): CrSummary[] {
 		const rows = this.state.data ?? [];
 		// TODO: narrow `rows` by `this.statusFilter` ('ALL' shows everything).
-		return rows;
+		if (this.statusFilter !== 'ALL') {
+			return rows.filter((r) => r.status === this.statusFilter);
+		}
+		else {
+			return rows;
+		}
+		
 	}
 }
