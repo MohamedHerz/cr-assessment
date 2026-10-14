@@ -71,6 +71,9 @@ review component state models and identify likely root causes before implementat
 
 explain project structure
 
+used ai to find angular date pipe format: date:'M/d/yyyy h:mm:ss a, easier to read this way
+
+
 
 ## 7. What I'd improve with more time
 -

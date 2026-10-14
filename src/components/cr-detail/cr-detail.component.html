@@ -40,9 +40,9 @@
 			<ol class="cr-timeline__list">
 				<li *ngFor="let entry of timeline" class="cr-timeline__entry">
 					<span class="cr-timeline__action">{{ entry.action }}</span>
-					<span class="cr-timeline__by">{{ entry.byUserId }}</span>
-					<span class="cr-timeline__at">{{ entry.at }}</span>
-					<span *ngIf="entry.note" class="cr-timeline__note">{{ entry.note }}</span>
+					<span class="cr-timeline__by"> {{ entry.byUserId.charAt(0).toUpperCase() + entry.byUserId.slice(1) }}</span>
+					<span class="cr-timeline__at"> {{ entry.at | date:'M/d/yyyy, h:mm:ss a' }}</span>
+					<span *ngIf="entry.note" class="cr-timeline__note"> {{ entry.note }}</span>
 				</li>
 			</ol>
 		</section>
