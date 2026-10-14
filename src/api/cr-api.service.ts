@@ -17,7 +17,7 @@ export class CrApiService {
 	/** Set > 0 to simulate network latency (ms). */
 	latencyMs = 0;
 	/** When true, the NEXT call rejects with a network error, then resets. */
-	failNext = true;
+	failNext = false;
 
 	private settle<T>(value: T): Promise<T> {
 		return new Promise<T>((resolve, reject) => {
