@@ -19,7 +19,8 @@
 		<!-- Diff / preview panel -->
 		<section class="cr-diff">
 			<h3>Proposed changes</h3>
-			<table class="cr-diff__table">
+			<p *ngIf="diff.length === 0" class="cr-diff__empty">No line-item changes.</p>
+			<table *ngIf="diff.length > 0" class="cr-diff__table">
 				<thead>
 					<tr><th>SKU</th><th>Change</th><th>Before</th><th>After</th></tr>
 				</thead>
@@ -37,7 +38,8 @@
 		<!-- Approval timeline -->
 		<section class="cr-timeline">
 			<h3>Timeline</h3>
-			<ol class="cr-timeline__list">
+			<p *ngIf="timeline.length === 0" class="cr-timeline__empty">No history yet.</p>
+			<ol *ngIf="timeline.length > 0" class="cr-timeline__list"> 
 				<li *ngFor="let entry of timeline" class="cr-timeline__entry">
 					<span class="cr-timeline__action">{{ entry.action }}</span>
 					<span class="cr-timeline__by"> {{ entry.byUserId.charAt(0).toUpperCase() + entry.byUserId.slice(1) }}</span>

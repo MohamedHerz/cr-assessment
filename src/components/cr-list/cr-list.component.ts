@@ -18,6 +18,7 @@ import { idle, loading, ViewState } from '../../common/view-state';
 })
 export class CrListComponent implements OnInit {
 	@Output() select = new EventEmitter<string>();
+	@Output() filterChange = new EventEmitter<void>();
 
 	state: ViewState<CrSummary[]> = idle();
 	statusFilter: CrStatus | 'ALL' = 'ALL';
@@ -41,6 +42,7 @@ export class CrListComponent implements OnInit {
 
 	onFilterChange(value: string): void {
 		this.statusFilter = value as CrStatus | 'ALL';
+		this.filterChange.emit();
 	}
 
 	/** Rows to render, after applying the active status filter. */

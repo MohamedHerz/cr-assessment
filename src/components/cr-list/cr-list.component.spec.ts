@@ -4,6 +4,7 @@ import { SessionService } from '../../session/session.service';
 import { users } from '../../api/fixtures';
 import { ReqUser } from '../../models/cr.models';
 
+
 const flush = () => new Promise((r) => setTimeout(r, 0));
 
 async function render(user: ReqUser): Promise<ComponentFixture<CrListComponent>> {
