@@ -22,7 +22,16 @@ export class CrListComponent implements OnInit {
 
 	state: ViewState<CrSummary[]> = idle();
 	statusFilter: CrStatus | 'ALL' = 'ALL';
-	readonly statuses: (CrStatus | 'ALL')[] = ['ALL', 'DRAFT', 'SUBMITTED', 'PENDING_APPROVAL', 'APPROVED', 'APPLIED', 'REJECTED', 'CANCELLED'];
+	readonly statuses: (CrStatus | 'ALL')[] = [
+		'ALL',
+		'DRAFT',
+		'SUBMITTED',
+		'PENDING_APPROVAL',
+		'APPROVED',
+		'APPLIED',
+		'REJECTED',
+		'CANCELLED',
+	];
 
 	constructor(private readonly api: CrApiService, private readonly session: SessionService) {}
 
@@ -51,10 +60,8 @@ export class CrListComponent implements OnInit {
 		// TODO: narrow `rows` by `this.statusFilter` ('ALL' shows everything).
 		if (this.statusFilter !== 'ALL') {
 			return rows.filter((r) => r.status === this.statusFilter);
-		}
-		else {
+		} else {
 			return rows;
 		}
-		
 	}
 }

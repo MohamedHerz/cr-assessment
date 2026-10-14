@@ -31,4 +31,14 @@ describe('CrDetailComponent', () => {
 		const approveBtn: HTMLButtonElement = fixture.nativeElement.querySelector('.cr-actions__approve');
 		expect(approveBtn.disabled).toBe(true);
 	});
+
+	it('shows empty messages when the CR has no line-items or timeline history', async () => {
+		const fixture = await render(users.approver, 'CR-1');
+		const component = fixture.componentInstance;
+		component.state = { status: 'loaded', data: { ...component.detail!, baselineLineItems: [], proposedLineItems: [], audit: [] } };
+		fixture.detectChanges();
+
+		expect(fixture.nativeElement.textContent).toContain('No line-item changes.');
+		expect(fixture.nativeElement.textContent).toContain('No history yet.');
+	});
 });

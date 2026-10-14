@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule} from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CrApiService } from '../../api/cr-api.service';
 import { SessionService } from '../../session/session.service';
 import { CrDetail, TimelineEntry } from '../../models/cr.models';
@@ -27,14 +27,13 @@ export class CrDetailComponent implements OnInit, OnChanges {
 	submitting = false;
 	actionError?: string;
 	// TODO: add validation so the form is invalid until a reason is entered.
-	rejectControl = new FormControl('', { nonNullable: true,
-		validators: (c) =>
-			{
-    			if (c.value.trim()) return null;
-    			return { required: true };
-			}
+	rejectControl = new FormControl('', {
+		nonNullable: true,
+		validators: (c) => {
+			if (c.value.trim()) return null;
+			return { required: true };
+		},
 	});
-
 
 	constructor(private readonly api: CrApiService, private readonly session: SessionService) {}
 
@@ -42,7 +41,7 @@ export class CrDetailComponent implements OnInit, OnChanges {
 		void this.load();
 	}
 	ngOnChanges(): void {
-    if (this.state.status !== 'idle') void this.load();
+		if (this.state.status !== 'idle') void this.load();
 	}
 
 	async load(): Promise<void> {
@@ -67,15 +66,14 @@ export class CrDetailComponent implements OnInit, OnChanges {
 	/** Approval timeline, oldest-first. */
 	get timeline(): TimelineEntry[] {
 		// TODO: return the audit entries ordered chronologically (oldest first).
-		return (this.detail?.audit ?? []).slice().sort((a,b) => a.at.localeCompare(b.at));
+		return (this.detail?.audit ?? []).slice().sort((a, b) => a.at.localeCompare(b.at));
 		// localecompare function used for comparing time  string format
 	}
-
 
 	/** Whether the current user may approve the loaded CR. */
 	get canApprove(): boolean {
 		// NOTE: this only looks at the CR status. The UI must also respect the user's permissions.
-		return this.detail?.status === 'PENDING_APPROVAL'&& canApprovePolicy(this.session.user);
+		return this.detail?.status === 'PENDING_APPROVAL' && canApprovePolicy(this.session.user);
 	}
 
 	get canReject(): boolean {
@@ -92,8 +90,7 @@ export class CrDetailComponent implements OnInit, OnChanges {
 		this.submitting = true;
 		this.actionError = undefined;
 		try {
-			this.state = { status: 'loaded', data: await this.api.approve(this.session.user,
-				this.id, new Date().toISOString()) };
+			this.state = { status: 'loaded', data: await this.api.approve(this.session.user, this.id, new Date().toISOString()) };
 		} catch (err) {
 			this.actionError = err.message;
 		}
@@ -108,13 +105,13 @@ export class CrDetailComponent implements OnInit, OnChanges {
 		this.submitting = true;
 		this.actionError = undefined;
 		try {
-			this.state = { status: 'loaded', data: await this.api.reject(this.session.user, this.id,
-				 new Date().toISOString(), this.rejectControl.value) };
-		}
-		catch(err) {
+			this.state = {
+				status: 'loaded',
+				data: await this.api.reject(this.session.user, this.id, new Date().toISOString(), this.rejectControl.value),
+			};
+		} catch (err) {
 			this.actionError = err.message;
 		}
 		this.submitting = false;
-}
-
+	}
 }

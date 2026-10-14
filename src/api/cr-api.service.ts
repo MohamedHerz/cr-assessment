@@ -17,7 +17,7 @@ export class CrApiService {
 	/** Set > 0 to simulate network latency (ms). */
 	latencyMs = 0;
 	/** When true, the NEXT call rejects with a network error, then resets. */
-	failNext = false;
+	failNext = true;
 
 	private settle<T>(value: T): Promise<T> {
 		return new Promise<T>((resolve, reject) => {
@@ -41,7 +41,9 @@ export class CrApiService {
 			.filter((s) => s.orgCode === user.orgCode)
 			.map((s) => {
 				const d = this.detailStore[s.id];
-				return d ? { id: d.id, title: d.title, status: d.status, orgCode: d.orgCode, delta: d.delta, currency: d.currency, updatedAt: d.updatedAt } : { ...s };
+				return d
+					? { id: d.id, title: d.title, status: d.status, orgCode: d.orgCode, delta: d.delta, currency: d.currency, updatedAt: d.updatedAt }
+					: { ...s };
 			});
 		return this.settle(rows);
 	}
